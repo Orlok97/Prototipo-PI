@@ -8,9 +8,15 @@
 </head>
 <body>
     <h1>Cadastro</h1>
-    {% if session['alert'] %}
-    <b>{{ session['alert'] }}</b>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
     {% endif %}
+    {% endwith %}
+    </ul>    
     <form action="{{ url_for('cadastro') }}" method="post">
         nome:<input type="nome" name="nome"><br>
         email:<input type="email" name="email"><br>

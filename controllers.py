@@ -1,4 +1,5 @@
-from flask import render_template, request, url_for, redirect , session, jsonify
+from flask import render_template, request, url_for
+from flask import redirect , session, flash
 from models import *
 
 #os metodos index dos controllers renderizam os templates
@@ -19,9 +20,9 @@ class CadastroController:
             telefone=request.form.get('telefone')
             senha=request.form.get('senha')
             if(self.store(nome,email,telefone,senha)):
-                session['alert']='cadastro feito com sucesso!'
+                flash('usuario cadastrado com sucesso!')
             else:
-                session['alert']='erro ao cadastrar! '
+                flash('erro ao cadastrar!')
         return render_template('cadastro.html')
     def store(self,nome,email,telefone,senha):
         try:
