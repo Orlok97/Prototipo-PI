@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro</title>
+</head>
+<body>
+    <h1>Cadastro</h1>
+    {% if session['alert'] %}
+    <b>{{ session['alert'] }}</b>
+    {% endif %}
+    <form action="{{ url_for('cadastro') }}" method="post">
+        nome:<input type="nome" name="nome"><br>
+        email:<input type="email" name="email"><br>
+        telefone<input type="number" name="telefone" id=""> <br>  
+        senha:<input type="text" name="senha"> <br>
+        <button type="submit">cadastrar</button>
+    </form>
+</body>
+</html>
