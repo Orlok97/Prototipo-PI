@@ -9,13 +9,20 @@ class LoginController:
         if request.method=='POST':
             email=request.form.get('email')
             senha=request.form.get('senha')
-            self.auth(email,senha)
+            if email == '' or senha == '':
+                flash('os campos devem ser preenchidos!')
+            else:
+                if self.auth(email,senha):
+                    flash('usuaio autenticado')
+                    session['email']=email
+                    return redirect(url_for('home'))
+                else:
+                    flash('email ou senha incorretos')
         return render_template('index.html')
     def auth(self,email,senha):
-        print(Auth().login(email,senha))
+        if Auth().login(email,senha):
+            return True
         
-            
-
 class CadastroController:
     def index(self):
         if request.method=='POST':
@@ -36,9 +43,12 @@ class CadastroController:
         except Exception as e:
             print('um erro ocorreu: ',e)
             
-    def get_all(self):
-        return Usuario().get_all()
-
 class HomeController:
     def index(self):
-        return render_template('home.html')
+        if not 'email' in session:
+            return redirect(url_for('index'))
+        user=Usuario().auth(session['email'])
+        return render_template('home.html',user=user)
+    def logout(self):
+        session.pop('email',None)
+        return redirect(url_for('index'))

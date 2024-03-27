@@ -22,7 +22,12 @@ class Usuario(db.Model):
             print(f"erro ao criar : {e}")
             db.session.rollback()
             return False
- 
+    @staticmethod
+    def auth(email):
+        usuario=Usuario.query.filter_by(email=email).first()
+        if usuario:
+            return usuario
+
 class Solicitar_Coleta(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     titulo=db.Column(db.String(80),nullable=False)
@@ -37,9 +42,6 @@ class Solicitar_Coleta(db.Model):
 class Auth:
     def login(self,e,senha):
         usuario=Usuario.query.filter_by(email=e).first()
-        if not usuario:
-            return 'usuario nao cadastrado!'
         if usuario.senha == senha:
             return True
-        else:
-            return 'email ou senha incorretos!'
+        

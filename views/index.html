@@ -8,7 +8,15 @@
 </head>
 <body>
     <h1>Login</h1>
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    </ul>    
     <form action="{{ url_for('index') }}" method="post">
         email:<input type="email" name="email"><br>
         senha:<input type="password" name="senha"><br>

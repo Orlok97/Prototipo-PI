@@ -21,6 +21,9 @@ def cadastro():
 @app.route('/home',methods=['GET','POST'])
 def home():
     return HomeController().index()
+@app.route('/logout')   
+def logout():
+    return HomeController().logout()
 
 
 if __name__ == '__main__':
