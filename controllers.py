@@ -6,10 +6,14 @@ from models import *
 
 class LoginController:
     def index(self):
-        return render_template('index.html')
-    def auth(self):
         if request.method=='POST':
-            pass
+            email=request.form.get('email')
+            senha=request.form.get('senha')
+            self.auth(email,senha)
+        return render_template('index.html')
+    def auth(self,email,senha):
+        print(Auth().login(email,senha))
+        
             
 
 class CadastroController:

@@ -9,8 +9,8 @@ class Usuario(db.Model):
     telefone=db.Column(db.Integer)
     senha=db.Column(db.String(120),nullable=False)
 
-    def __repr__(self):
-        return 'Usuario %r'%self.nome
+    #def __repr__(self):
+        #return 'Usuario %r'%self.nome
     @staticmethod
     def create(nome,email,telefone,senha):
         usuario=Usuario(nome=nome,email=email,telefone=telefone,senha=senha)
@@ -22,11 +22,7 @@ class Usuario(db.Model):
             print(f"erro ao criar : {e}")
             db.session.rollback()
             return False
-    @staticmethod
-    def get_all():
-        return Usuario.query.all()
-
-
+ 
 class Solicitar_Coleta(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     titulo=db.Column(db.String(80),nullable=False)
@@ -37,3 +33,13 @@ class Solicitar_Coleta(db.Model):
 
     def __repr__(self):
         return 'Coleta %r'%self.titulo
+
+class Auth:
+    def login(self,e,senha):
+        usuario=Usuario.query.filter_by(email=e).first()
+        if not usuario:
+            return 'usuario nao cadastrado!'
+        if usuario.senha == senha:
+            return True
+        else:
+            return 'email ou senha incorretos!'

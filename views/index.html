@@ -8,5 +8,11 @@
 </head>
 <body>
     <h1>Login</h1>
+
+    <form action="{{ url_for('index') }}" method="post">
+        email:<input type="email" name="email"><br>
+        senha:<input type="password" name="senha"><br>
+        <button type="submit">logar</button>
+    </form>
 </body>
 </html>

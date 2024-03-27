@@ -22,9 +22,6 @@ def cadastro():
 def home():
     return HomeController().index()
 
-@app.route('/users')
-def get_all():
-    return CadastroController().get_all()
 
 if __name__ == '__main__':
     app.run(debug=True)
